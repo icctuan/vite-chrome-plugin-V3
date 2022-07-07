@@ -1,6 +1,7 @@
+import { FC, useState } from 'react'
 import { Avatar, Divider } from 'antd'
 import { LogoutOutlined } from '@ant-design/icons'
-import { FC, useState } from 'react'
+
 import styles from './index.module.less'
 
 const Set: FC<any> = () => {
