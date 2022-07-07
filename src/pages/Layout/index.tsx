@@ -19,7 +19,7 @@ const Layout: FC<any> = () => {
 	return (
 		<div>
 			<div>
-				<button>工具</button>
+				<button className="wd-my-xxs">工具</button>
 				<button>管理</button>
 				<button>设置</button>
 			</div>
