@@ -1,6 +1,6 @@
 import { HashRouter, Route, Routes } from 'react-router-dom'
-import Header from './pages/Header'
-import Home from './pages/Home'
+import Tool from './pages/Tool'
+import Set from './pages/Set'
 import Layout from './pages/Layout'
 import Manage from './pages/Manage'
 
@@ -9,10 +9,10 @@ function App() {
 		<HashRouter basename="/">
 			<Routes>
 				<Route path="/" element={<Layout />}>
-					<Route index element={<Header />} />
-					{/* <Route path="tool" element={<Tool />} /> */}
+					<Route index element={<Tool />} />
+					<Route path="tool" element={<Tool />} />
 					<Route path="manage" element={<Manage />} />
-					<Route path="home" element={<Home />} />
+					<Route path="setting" element={<Set />} />
 				</Route>
 				{/* <Route path="*" element={<NotFound />} /> */}
 			</Routes>

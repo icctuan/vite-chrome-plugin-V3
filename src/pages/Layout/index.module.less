@@ -1,0 +1,35 @@
+.wrapper {
+	width: 300px;
+	height: 500px;
+}
+.header {
+	width: 100%;
+	:global {
+		.ant-radio-group {
+			width: 100%;
+			display: flex;
+			justify-content: space-around;
+		}
+		.ant-radio-button-wrapper:focus-within,
+		.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):focus-within {
+			box-shadow: none;
+		}
+		.ant-radio-button-wrapper:first-child {
+			border: none;
+		}
+		.ant-radio-button-wrapper {
+			height: 50px;
+			line-height: 50px;
+			padding: 0 20px;
+			border: none;
+			&:not(:first-child)::before {
+				display: none;
+			}
+		}
+	}
+}
+
+.main {
+	width: 300px;
+	height: calc(100% - 50px);
+}
