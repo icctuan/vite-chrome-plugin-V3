@@ -5,8 +5,8 @@ import styles from './index.module.less'
 const Tool: FC<any> = () => {
 	return (
 		<div className={styles.wrapper}>
-			{LINKS.map(item => (
-				<a href={item.value} target="_blank" rel="noreferrer">
+			{LINKS.map((item, index) => (
+				<a key={index} href={item.value} target="_blank" rel="noreferrer">
 					{item.label}
 				</a>
 			))}

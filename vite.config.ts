@@ -9,13 +9,12 @@ import manifest from './manifest.json'
 
 export default ({ command, mode }: ConfigEnv): UserConfig => {
 	return {
-		// envPrefix: 'VITE_',
 		plugins: [react(), crx({ manifest }), WindiCSS()],
 		server: {
 			host: 'dev.a.newrank.cn',
 			port: 3001,
 			// proxy: {
-			// 	'/xdnphb/common/account/get': {
+			// 	'xdnphb/common/account/get': {
 			// 		target: 'http://test.a.newrank.cn',
 			// 		changeOrigin: true
 			// 	}

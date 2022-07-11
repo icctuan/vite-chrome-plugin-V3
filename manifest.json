@@ -1,6 +1,24 @@
 {
-  "manifest_version": 3,
-  "name": "CRXJS React Vite Example",
-  "version": "1.0.0",
-  "action": { "default_popup": "index.html" }
+	"manifest_version": 3,
+	"version": "1.0.0",
+	"name": "Nr PZY React Vite Plugin",
+	"description": "",
+	"author": "pengziyan",
+	"icons": {
+		"16": "src/img/cat16.png",
+		"32": "src/img/cat32.png",
+		"48": "src/img/cat48.png",
+		"128": "src/img/cat128.png"
+	},
+	"action": {
+		"default_icon": {
+			"16": "src/img/cat16.png",
+			"32": "src/img/cat32.png"
+		},
+		"default_popup": "index.html"
+	},
+	"options_page": "options.html",
+	"options_ui": {
+		"page": "options.html"
+	}
 }
