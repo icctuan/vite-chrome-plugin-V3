@@ -5,45 +5,46 @@ import Tool from './pages/Tool'
 import Set from './pages/Set'
 import Layout from './pages/Layout'
 import Manage from './pages/Manage'
-import Notlogin from './pages/NotLogin'
+import NotLogin from './pages/NotLogin'
 import { reqGetUser } from './api'
+import { Spin } from 'antd'
+import { useUserInfo } from './context/user'
 
 function App() {
-	const [userInfo, setUserInfo] = useState<Record<string, any>>({})
+	// 获取用户信息并存入recoil
+	const [userInfo, setUserInfo] = useUserInfo()
 	const [loading, setLoading] = useState(false)
 
-	// useEffect(() => {
-	// 	setLoading(true)
-	// 	// // 获取用户登录信息
-	// 	reqGetUser()
-	// 		.then(res => {
-	// 			console.log(res)
-	// 			const { success, data } = res as any
-	// 			if (success) {
-	// 				setUserInfo(data?.user || {})
-	// 			}
-	// 		})
-	// 		.finally(() => setLoading(false))
-	// }, [])
+	useEffect(() => {
+		setLoading(true)
+		// 获取用户登录信息
+		reqGetUser()
+			.then(res => {
+				const { success, data } = res as any
+				if (success) {
+					setUserInfo(data?.user || {})
+				}
+			})
+			.finally(() => setLoading(false))
+	}, [])
 
 	return (
-		<>
-			{/* {isEmpty(userInfo) ? (
-				<Notlogin />
-			) : ( */}
-			<HashRouter basename="/">
-				<Routes>
-					<Route path="/" element={<Layout />}>
-						<Route index element={<Tool />} />
-						<Route path="tool" element={<Tool />} />
-						<Route path="manage" element={<Manage />} />
-						<Route path="setting" element={<Set />} />
-					</Route>
-					{/* <Route path="*" element={<NotFound />} /> */}
-				</Routes>
-			</HashRouter>
-			{/* )} */}
-		</>
+		<Spin spinning={loading}>
+			{isEmpty(userInfo) ? (
+				<NotLogin />
+			) : (
+				<HashRouter basename="/">
+					<Routes>
+						<Route path="/" element={<Layout />}>
+							<Route index element={<Tool />} />
+							<Route path="tool" element={<Tool />} />
+							<Route path="manage" element={<Manage />} />
+							<Route path="setting" element={<Set />} />
+						</Route>
+					</Routes>
+				</HashRouter>
+			)}
+		</Spin>
 	)
 }
 

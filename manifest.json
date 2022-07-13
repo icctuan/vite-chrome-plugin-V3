@@ -20,5 +20,7 @@
 	"options_page": "options.html",
 	"options_ui": {
 		"page": "options.html"
-	}
+	},
+	"host_permissions": ["*://*/"],
+	"permissions": ["tabs", "cookies", "proxy"]
 }
