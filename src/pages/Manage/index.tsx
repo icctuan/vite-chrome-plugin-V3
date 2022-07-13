@@ -1,24 +1,45 @@
+/* eslint-disable no-undef */
 import { Button, Input } from 'antd'
 import { SoundOutlined } from '@ant-design/icons'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 const Manage: FC<any> = () => {
-	// function sendMessageToContentScript(message, callback) {
-	// 	chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-	// 		chrome.tabs.sendMessage(tabs[0].id, message, function (response) {
-	// 			if (callback) callback(response)
-	// 		})
-	// 	})
-	// }
+	const [info, setInfo] = useState<string>("hello, I'm popUp！")
+
+	/** 获取当前选项卡ID */
+	function getCurrentTabId(callback: any) {
+		// @ts-ignore
+		chrome.tabs.query({ active: true, currentWindow: true }, function (tabs: any) {
+			if (callback) callback(tabs.length ? tabs[0].id : null)
+		})
+	}
+
+	/** 向content-script主动发送消息 */
+	function sendMessageToContentScript(message: any, callback: any) {
+		getCurrentTabId((tabId: any) => {
+			// @ts-ignore
+			chrome.tabs.sendMessage(tabId, message, function (response: any) {
+				if (callback) callback(response)
+			})
+		})
+	}
+
+	/** 点击发送消息 */
 	const handleSendMessage = () => {
-		// sendMessageToContentScript('你好，我是popup！', (response: any) => {
-		// 	if (response) console.log('收到来自content-script的回复：' + response)
-		// })
+		sendMessageToContentScript(info, (response: string) => {
+			if (response) console.log('收到来自content-script的回复：' + response)
+		})
+	}
+
+	const handleOptionOpenClick = () => {
+		// window.open(`${chrome.extension.getURL()}/option.html`, '_blank')
 	}
 
 	return (
 		<div className="wd-p-10px">
-			<Button className="wd-my-10px">打开Options</Button>
+			<Button className="wd-my-10px" onClick={handleOptionOpenClick}>
+				打开Options
+			</Button>
 			<p className="wd-mt-20px">
 				<SoundOutlined className="wd-pr-10px" />
 				向content发送消息：
@@ -26,10 +47,11 @@ const Manage: FC<any> = () => {
 			<Input.Group compact>
 				<Input
 					style={{ width: 'calc(100% - 65px)' }}
-					defaultValue="https://ant.design"
+					value={info}
+					onChange={e => setInfo(e.target.value)}
 					placeholder="请输入内容"
 				/>
-				<Button type="primary" onClick={handleSendMessage}>
+				<Button id="send" type="primary" onClick={handleSendMessage}>
 					发送
 				</Button>
 			</Input.Group>

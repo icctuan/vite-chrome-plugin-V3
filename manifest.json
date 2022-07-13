@@ -22,5 +22,12 @@
 		"page": "options.html"
 	},
 	"host_permissions": ["*://*/"],
-	"permissions": ["tabs", "cookies", "proxy"]
+	"permissions": ["cookies"],
+	"content_scripts": [
+		{
+			"js": ["src/js/content.js"],
+			"matches": ["http://test.a.newrank.cn/center/*"],
+			"run_at": "document_start"
+		}
+	]
 }
