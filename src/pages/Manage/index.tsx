@@ -9,7 +9,7 @@ const Manage: FC<any> = () => {
 	/** 获取当前选项卡ID */
 	function getCurrentTabId(callback: any) {
 		// @ts-ignore
-		chrome.tabs.query({ active: true, currentWindow: true }, function (tabs: any) {
+		chrome.tabs.query({ active: true, currentWindow: true }, (tabs: any) => {
 			if (callback) callback(tabs.length ? tabs[0].id : null)
 		})
 	}
@@ -18,7 +18,7 @@ const Manage: FC<any> = () => {
 	function sendMessageToContentScript(message: any, callback: any) {
 		getCurrentTabId((tabId: any) => {
 			// @ts-ignore
-			chrome.tabs.sendMessage(tabId, message, function (response: any) {
+			chrome.tabs.sendMessage(tabId, message, (response: any) => {
 				if (callback) callback(response)
 			})
 		})

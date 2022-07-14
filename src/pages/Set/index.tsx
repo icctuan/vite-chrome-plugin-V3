@@ -12,8 +12,8 @@ const Set: FC<any> = () => {
 	const [userInfo] = useUserInfo()
 
 	const handleLogOut = async () => {
-		const res = (await reqLoginOut()) as any
-		const { data, success, message: msg } = res
+		const res: any = await reqLoginOut()
+		const { data, success } = res
 		if (success && data?.code === '1') {
 			window.open(config.loginUrl)
 		}

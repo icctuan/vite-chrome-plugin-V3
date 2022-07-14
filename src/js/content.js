@@ -1,5 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
-	console.log('这是content-script！')
+document.addEventListener('DOMContentLoaded', () => {
 	let tempDiv = document.createElement('div')
 	tempDiv.id = 'tempDiv'
 	tempDiv.innerText = '我是一个晒黑的div'
@@ -10,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // 接收来自后台的消息
 // eslint-disable-next-line no-undef
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 	let tempDiv = document.getElementById('tempDiv')
 	if (tempDiv) tempDiv.innerText = request
 	sendResponse('我收到你的消息了：' + JSON.stringify(request))
