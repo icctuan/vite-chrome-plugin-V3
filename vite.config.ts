@@ -21,10 +21,10 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
 			host: 'dev.a.newrank.cn',
 			port: 3001,
 			proxy: {
-				'/xdnphb/common/account/get': {
-					target: _proxy?.ade,
-					changeOrigin: true
-				},
+				// '/xdnphb/common/account/get': {
+				// 	target: _proxy?.ade,
+				// 	changeOrigin: true
+				// },
 				'/nr/user/login/loginOut': {
 					target: _proxy?.ade,
 					changeOrigin: true

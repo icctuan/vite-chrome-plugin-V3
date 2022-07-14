@@ -22,8 +22,8 @@ const Set: FC<any> = () => {
 	return (
 		<div className={styles.setWrapper}>
 			<p>
-				<Avatar size={50} src={userInfo?.headimgurl} className="wd-mr-10px" />
-				{userInfo?.nr_name}
+				<Avatar size={50} src={userInfo?.headImgUrl} className="wd-mr-10px" />
+				{userInfo?.nickName}
 			</p>
 			<div>
 				<Divider />

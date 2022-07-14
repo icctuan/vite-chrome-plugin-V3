@@ -6,7 +6,8 @@ import Set from './pages/Set'
 import Layout from './pages/Layout'
 import Manage from './pages/Manage'
 import NotLogin from './pages/NotLogin'
-import { reqGetUser } from './api'
+// import { reqGetUser } from './api'
+import { reqGetUserInfo } from './api'
 import { Spin } from 'antd'
 import { useUserInfo } from './context/user'
 
@@ -15,14 +16,27 @@ function App() {
 	const [userInfo, setUserInfo] = useUserInfo()
 	const [loading, setLoading] = useState(false)
 
+	// useEffect(() => {
+	// 	setLoading(true)
+	// 	// 获取用户登录信息
+	// 	reqGetUser()
+	// 		.then(res => {
+	// 			const { success, data } = res as any
+	// 			if (success) {
+	// 				setUserInfo(data?.user || {})
+	// 			}
+	// 		})
+	// 		.finally(() => setLoading(false))
+	// }, [])
+
 	useEffect(() => {
 		setLoading(true)
 		// 获取用户登录信息
-		reqGetUser()
+		reqGetUserInfo()
 			.then(res => {
-				const { success, data } = res as any
+				const { success, result } = res as any
 				if (success) {
-					setUserInfo(data?.user || {})
+					setUserInfo(result || {})
 				}
 			})
 			.finally(() => setLoading(false))
@@ -30,20 +44,20 @@ function App() {
 
 	return (
 		<Spin spinning={loading}>
-			{/* {isEmpty(userInfo) ? (
+			{isEmpty(userInfo) ? (
 				<NotLogin />
-			) : ( */}
-			<HashRouter basename="/">
-				<Routes>
-					<Route path="/" element={<Layout />}>
-						<Route index element={<Tool />} />
-						<Route path="tool" element={<Tool />} />
-						<Route path="manage" element={<Manage />} />
-						<Route path="setting" element={<Set />} />
-					</Route>
-				</Routes>
-			</HashRouter>
-			{/* )} */}
+			) : (
+				<HashRouter basename="/">
+					<Routes>
+						<Route path="/" element={<Layout />}>
+							<Route index element={<Tool />} />
+							<Route path="tool" element={<Tool />} />
+							<Route path="manage" element={<Manage />} />
+							<Route path="setting" element={<Set />} />
+						</Route>
+					</Routes>
+				</HashRouter>
+			)}
 		</Spin>
 	)
 }
