@@ -17,5 +17,5 @@
 		"jsx": "react-jsx"
 		// "paths": { "@/*": ["./src/*"] }
 	},
-	"include": ["src", "/src/config/*", "src/utils/*", "src/types/*", "src/js/*"]
+	"include": ["src", "nested", "/src/config/*", "src/utils/*", "src/types/*", "src/js/*"]
 }

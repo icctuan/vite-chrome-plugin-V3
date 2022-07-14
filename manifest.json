@@ -2,7 +2,7 @@
 	"manifest_version": 3,
 	"version": "1.0.0",
 	"name": "Nr PZY React Vite Plugin",
-	"description": "",
+	"description": "(๑′ᴗ‵๑)啦啦啦",
 	"author": "pengziyan",
 	"icons": {
 		"16": "src/img/cat16.png",
@@ -17,16 +17,16 @@
 		},
 		"default_popup": "index.html"
 	},
-	"options_page": "options.html",
+	"options_page": "nested/index.html",
 	"options_ui": {
-		"page": "options.html"
+		"page": "nested/index.html"
 	},
 	"host_permissions": ["*://*/"],
-	"permissions": ["cookies"],
+	"permissions": ["cookies", "contextMenus", "tabs", "notifications", "webRequest", "storage"],
 	"content_scripts": [
 		{
 			"js": ["src/js/content.js"],
-			"matches": ["http://test.a.newrank.cn/center/*"],
+			"matches": ["*://*/*"],
 			"run_at": "document_start"
 		}
 	]

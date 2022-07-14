@@ -13,6 +13,8 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
 	const { VITE_NODE_ENV } = env
 	const _proxy = proxy_url[VITE_NODE_ENV]
 
+	const { resolve } = require('path')
+
 	return {
 		plugins: [react(), crx({ manifest }), WindiCSS()],
 		server: {
@@ -29,6 +31,14 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
 				}
 			},
 			open: true
+		},
+		build: {
+			rollupOptions: {
+				input: {
+					main: resolve(__dirname, 'index.html'),
+					nested: resolve(__dirname, 'nested/index.html')
+				}
+			}
 		}
 	}
 }
