@@ -24,15 +24,17 @@ const Manage: FC<any> = () => {
 		})
 	}
 
-	/** 点击发送消息 */
+	/** 点击向content发送消息 */
 	const handleSendMessage = () => {
 		sendMessageToContentScript(info, (response: string) => {
 			if (response) console.log('收到来自content-script的回复：' + response)
 		})
 	}
 
+	/** 向background发送消息，打开options */
 	const handleOptionOpenClick = () => {
-		// window.open(`${chrome.extension.getURL()}/option.html`, '_blank')
+		// @ts-ignore
+		chrome.runtime.sendMessage('showOptions')
 	}
 
 	return (

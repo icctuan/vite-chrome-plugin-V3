@@ -29,5 +29,9 @@
 			"matches": ["*://*/*"],
 			"run_at": "document_start"
 		}
-	]
+	],
+	"background": {
+		"service_worker": ["src/js/background.js"],
+		"type": "module"
+	}
 }
