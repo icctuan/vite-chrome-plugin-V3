@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 document.addEventListener('DOMContentLoaded', () => {
 	let tempDiv = document.createElement('div')
 	tempDiv.id = 'tempDiv'
@@ -8,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 // 接收来自后台的消息
-// eslint-disable-next-line no-undef
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 	let tempDiv = document.getElementById('tempDiv')
 	if (tempDiv) tempDiv.innerText = request
