@@ -25,10 +25,10 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
 				// 	target: _proxy?.ade,
 				// 	changeOrigin: true
 				// },
-				'/nr/user/login/loginOut': {
-					target: _proxy?.ade,
-					changeOrigin: true
-				}
+				// '/nr/user/login/loginOut': {
+				// 	target: _proxy?.ade,
+				// 	changeOrigin: true
+				// }
 			},
 			open: true
 		},
