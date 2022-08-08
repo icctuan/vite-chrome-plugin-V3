@@ -43,3 +43,19 @@ chrome.tabs.onActivated.addListener(() => {
 // 		})
 // 	})
 // })
+
+// 监听url变化时加载状态变化信息
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+	if (changeInfo.status === 'complete') {
+		if (
+			tab.url === 'https://www.xingtu.cn/?role=ad' ||
+			tab.url === 'https://github.com/login' ||
+			tab.url === 'https://www.douyin.com/' ||
+			tab.url === 'https://pgy.xiaohongshu.com/' ||
+			tab.url ===
+				'https://sso.e.qq.com/login/hub?sso_redirect_uri=https%3A%2F%2Fe.qq.com%2Fdev%2Flogin&service_tag=14'
+		) {
+			chrome.tabs.sendMessage(tab.id, { type: 'onUpdated' }, response => console.log(response))
+		}
+	}
+})
