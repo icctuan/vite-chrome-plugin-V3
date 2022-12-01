@@ -14,6 +14,17 @@ const Manage: FC<any> = () => {
 		})
 	}
 
+	function getCookies(callback: any) {
+		// @ts-ignore
+		chrome.tabs.query({ active: true, currentWindow: true }, (tabs: any) => {
+			const url = new URL(tabs[0].url)
+			// @ts-ignore
+			chrome.cookies.getAll({ domain: url.host }, (cookies: any) => {
+				if (callback) callback(cookies.map((c: any) => c.name + '=' + c.value).join(';'))
+			})
+		})
+	}
+
 	/** 向content-script主动发送消息 */
 	function sendMessageToContentScript(message: any, callback: any) {
 		getCurrentTabId((tabId: any) => {
@@ -26,9 +37,15 @@ const Manage: FC<any> = () => {
 
 	/** 点击向content发送消息 */
 	const handleSendMessage = () => {
-		sendMessageToContentScript(info, (response: string) => {
-			if (response) console.log('收到来自content-script的回复：' + response)
+		getCookies((cookies: any) => {
+			sendMessageToContentScript(cookies, (response: string) => {
+				if (response) console.log('收到来自content-script的回复：' + response)
+			})
 		})
+
+		// sendMessageToContentScript(info, (response: string) => {
+		// 	if (response) console.log('收到来自content-script的回复：' + response)
+		// })
 	}
 
 	/** 向background发送消息，打开options */

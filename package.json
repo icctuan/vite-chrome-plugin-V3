@@ -22,7 +22,6 @@
 		"qs": "^6.11.0",
 		"react": "^18.0.0",
 		"react-dom": "^18.0.0",
-		"react-router": "^6.3.0",
 		"react-router-dom": "^6.3.0",
 		"recoil": "^0.7.4",
 		"vite-plugin-windicss": "^1.8.6",

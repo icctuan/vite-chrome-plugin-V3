@@ -1,8 +1,7 @@
 // 布局组件
 import { Divider } from 'antd'
 import { FC, useState } from 'react'
-import { Outlet } from 'react-router'
-import { Link } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import styles from './index.module.less'
 
 const Base: FC<any> = () => {

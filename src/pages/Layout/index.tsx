@@ -1,7 +1,6 @@
 // 布局组件
 import { FC, useState } from 'react'
-import { Outlet } from 'react-router'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Outlet } from 'react-router-dom'
 import { Divider, Radio, RadioChangeEvent } from 'antd'
 import styles from './index.module.less'
 

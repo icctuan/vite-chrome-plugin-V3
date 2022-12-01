@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Avatar, Divider } from 'antd'
 import { LogoutOutlined } from '@ant-design/icons'
 import { useUserInfo } from '../../context/user'
@@ -8,6 +9,7 @@ import { config } from '../../config'
 import styles from './index.module.less'
 
 const Set: FC<any> = () => {
+	const navigate = useNavigate()
 	// 用户信息
 	const [userInfo] = useUserInfo()
 

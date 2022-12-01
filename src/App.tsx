@@ -55,6 +55,7 @@ function App() {
 							<Route path="manage" element={<Manage />} />
 							<Route path="setting" element={<Set />} />
 						</Route>
+						{/* <Route path="notLogin" element={<NotLogin />} /> */}
 					</Routes>
 				</HashRouter>
 			)}

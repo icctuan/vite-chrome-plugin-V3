@@ -22,7 +22,15 @@
 		"page": "nested/index.html"
 	},
 	"host_permissions": ["*://*/"],
-	"permissions": ["cookies", "contextMenus", "tabs", "notifications", "webRequest", "storage"],
+	"permissions": [
+		"cookies",
+		"contextMenus",
+		"tabs",
+		"notifications",
+		"webRequest",
+		"storage",
+		"webNavigation"
+	],
 	"content_scripts": [
 		{
 			"js": ["src/js/content.js"],

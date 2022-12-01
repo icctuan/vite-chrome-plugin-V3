@@ -21,12 +21,17 @@ chrome.tabs.onActivated.addListener(() => {
 		const tabUrl = tabs[0].url // 空白标签页的tab[0].url为空
 		if (tabUrl) {
 			const url = new URL(tabUrl)
-			console.log('url----', url)
+			// console.log('url----', url)
 			// @ts-ignore
 			// 获取页面的cookies
 			chrome.cookies.getAll({ domain: url.host }, cookies => {
-				console.log('cookies----', cookies)
+				// console.log('cookies----', cookies)
 			})
+
+			// 测试页面提示
+			if (url.hostname === 'test.e.newrank.cn') {
+				chrome.tabs.sendMessage(tabs[0].id, { type: 'testPage' }, response => console.log(response))
+			}
 		}
 	})
 })
