@@ -1,3 +1,4 @@
+/** 代理地址 */
 export const proxy_url = {
 	production: {
 		api: 'https://api.newrank.cn',

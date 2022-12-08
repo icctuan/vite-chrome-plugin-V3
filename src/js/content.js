@@ -1,4 +1,6 @@
 /* eslint-disable no-undef */
+
+/** 页面Dom加载完成后的操作 */
 document.addEventListener('DOMContentLoaded', () => {
 	// 给每一个页面都加div
 	// let tempDiv = document.createElement('div')
@@ -9,26 +11,33 @@ document.addEventListener('DOMContentLoaded', () => {
 	// document.body.appendChild(tempDiv)
 })
 
-// 接收来自后台的消息
+// 接收消息（包括后台）
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-	let tempDiv = document.getElementById('tempDiv')
-	if (tempDiv) tempDiv.innerText = request
-	sendResponse('我收到你的消息了：' + JSON.stringify(request))
+	if (typeof request === 'object') {
+		const { msg, type } = request
+		if (type === 'msg') {
+			sendResponse('Hello, PopUp.')
+		}
 
-	if (request.type === 'onUpdated') {
-		findPasswordAndName(document.body.children)
-		observeDOM()
-		sendResponse('开始监听')
-	}
+		// 查找页面元素，并监听dom变化后重新查找
+		if (type === 'onUpdated') {
+			findPasswordAndName(document.body.children)
+			observeDOM()
+			sendResponse('开始监听页面元素')
+		}
 
-	// 测试页面提示
-	if (request.type === 'testPage') {
-		let fiv = document.createElement('div')
-		fiv.id = 'tempDiv'
-		fiv.innerText = '我是测试'
-		fiv.style.cssText =
-			'font-size: 20px;padding: 20px;z-index: 10000;position: fixed;bottom: 0px;right: 0px;width: 400px;height: 200px;background-color: black;color: pink;'
-		document.body.appendChild(fiv)
+		// 测试页面提示（可以优化一个dom创建的函数）
+		if (type === 'isTest') {
+			const dom = document.getElementById('testDiv')
+			if (!dom) {
+				let fiv = document.createElement('div')
+				fiv.id = 'testDiv'
+				fiv.innerText = '我是测试'
+				fiv.style.cssText =
+					'font-size: 20px;padding: 20px;z-index: 10000;position: fixed;bottom: 0px;right: 0px;width: 400px;height: 200px;background-color: black;color: pink;'
+				document.body.appendChild(fiv)
+			}
+		}
 	}
 })
 
@@ -56,16 +65,17 @@ const observeDOM = () => {
 /** 递归进行password元素查找 */
 const findPasswordAndName = addedNodes => {
 	for (const i of addedNodes) {
+		// 节点元素为input且type是password基本可以确定是密码输入框
 		if (i.nodeName === 'INPUT' && i.type === 'password') {
-			// console.log('找到了', i)
+			console.log('密码输入框', i)
 			i.placeholder = '1234'
 			i.value = '123456'
 			const clickEvent = new Event('input')
 			i.dispatchEvent(clickEvent)
 			return
 		} else if (i.children) {
+			// 父级没找到，继续查找下一级子元素，直到最后一级
 			findPasswordAndName(i.children)
-			// console.log('继续找')
 		}
 	}
 }

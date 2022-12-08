@@ -5,8 +5,9 @@ import { config } from '../../config'
 import styles from './index.module.less'
 
 const Notlogin: FC<any> = () => {
+	/** 打开登录页面 */
 	const handleLogIn = () => {
-		const loginHref = config!.loginUrl
+		const loginHref = config.loginUrl
 		window.open(loginHref)
 	}
 

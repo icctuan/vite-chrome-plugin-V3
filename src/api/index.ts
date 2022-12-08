@@ -7,7 +7,7 @@ import { proxy_url } from '../config/proxy'
 // 	return axios_xyz.get(`${config.ade}xdnphb/common/account/get`)
 // }
 
-// // /** 退出登录 */
+// /** 退出登录 */
 // export const reqLoginOut = () => {
 // 	return axios_xyz.post(`${config.ade}nr/user/login/loginOut`)
 // }

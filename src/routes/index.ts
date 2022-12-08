@@ -6,7 +6,7 @@ import Manage from '../pages/Manage'
 import NotLogin from '../pages/NotLogin'
 
 type Route = {
-	path?: string
+	path: string
 	routes?: Route[]
 	component?: ComponentType<any>
 	redirect?: string // 重定向
@@ -16,10 +16,10 @@ type Route = {
 const routes: Route[] = [
 	{
 		path: '/',
-		redirect: '/dashboard/tool',
+		redirect: '/dashboard/manage',
 		routes: [
 			{
-				path: '/dashboard',
+				path: '/dashboard/',
 				component: Layout,
 				routes: [
 					{
@@ -28,12 +28,12 @@ const routes: Route[] = [
 						exact: true
 					},
 					{
-						path: '/dashboard/tools',
+						path: '/dashboard/setting',
 						component: Set,
 						exact: true
 					},
 					{
-						path: '/dashboard/tools',
+						path: '/dashboard/manage',
 						component: Manage,
 						exact: true
 					}

@@ -1,8 +1,8 @@
-/* global process */
 import { getEev } from '../utils'
 
 const env = getEev()
 
+/** 环境配置 */
 export const config = {
 	development: {
 		loginUrl: `http://test.main.newrank.cn/user/login?displayType=login&source=130&type=121&backUrl=http://test.a.newrank.cn/center/#/index/&scene=adinsight_login`,
