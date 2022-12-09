@@ -6,7 +6,7 @@ import styles from './index.module.less'
 
 const Manage: FC<any> = () => {
 	const [info, setInfo] = useState("Hello, I'm PopUp！")
-	const [showCookies, setShowCookies] = useState([])
+	const [showCookies, setShowCookies] = useState<{ name: string; value: string }[]>([])
 	const [receiveMsg, setReceiveMsg] = useState('')
 
 	/** 获取当前窗口：currentWindow 激活：active的选项卡ID，用于通信 */
@@ -43,10 +43,11 @@ const Manage: FC<any> = () => {
 	function getCookies(callback: any) {
 		// @ts-ignore
 		chrome.tabs.query({ active: true, currentWindow: true }, (tabs: any) => {
-			const url = new URL(tabs[0].url)
+			const url = tabs[0]?.url
+			const rightUrl = new URL(url)
 			// @ts-ignore
-			chrome.cookies.getAll({ domain: url.host }, (cookies: any) => {
-				if (callback) callback(cookies?.map((c: any) => c.name + '=' + c.value).join(';'))
+			chrome.cookies.getAll({ domain: rightUrl.host }, (cookies: any) => {
+				if (callback) callback(cookies?.map((c: any) => ({ name: c.name, value: c.value })))
 			})
 		})
 	}
@@ -54,8 +55,7 @@ const Manage: FC<any> = () => {
 	/** 获取当前页面的cookies */
 	const getThisTabCookies = () => {
 		getCookies((cookies: any) => {
-			const total = cookies?.split(';')
-			total && setShowCookies(total)
+			cookies && setShowCookies(cookies)
 			// 通知content
 			sendMessageToContentScript({ msg: cookies, type: 'cookies' }, (response: string) => {
 				if (response) {
@@ -106,7 +106,10 @@ const Manage: FC<any> = () => {
 			{showCookies.length ? (
 				<div className={styles.cookiesWrap}>
 					{showCookies.map(item => (
-						<p>{item}</p>
+						<p>
+							<span className="wd-text-[#d48806] wd-mr-4px">{item.name}:</span>
+							<span>{item.value}</span>
+						</p>
 					))}
 				</div>
 			) : null}

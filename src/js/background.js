@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable prettier/prettier */
-import { isHttpsPage } from '../utils'
+// import { isDevPage } from '../utils'
 
 // 监听发送给background的事件
 chrome.runtime.onMessage.addListener(request => {
@@ -26,7 +26,7 @@ chrome.tabs.onActivated.addListener(() => {
 
 		// 非https页面，发送事件会报错
 		// 空白标签页的tab[0].url为空
-		if (!tabUrl || !isHttpsPage(tabUrl)) return
+		// if (!tabUrl || !isDevPage(tabUrl)) return
 
 		if (tabUrl) {
 			const url = new URL(tabUrl)

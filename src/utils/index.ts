@@ -6,8 +6,8 @@ export const getEev = (): ENV => {
 	return import.meta.env.VITE_NODE_ENV
 }
 
-/** 是否为非https页面 */
-export const isHttpsPage = (url: string) => {
-	const reg = new RegExp(/^https:\/\/(\S+)+$/)
-	return reg.test(url)
-}
+// /** 是否为非https页面 */
+// export const isDevPage = (url: string) => {
+// 	const reg = new RegExp(/^http[s]*:\/\/(\S+)+$/)
+// 	return reg.test(url)
+// }
