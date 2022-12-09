@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 /* eslint-disable prettier/prettier */
-// import { isDevPage } from '../utils'
 
 // 监听发送给background的事件
 chrome.runtime.onMessage.addListener(request => {
@@ -35,14 +34,14 @@ chrome.tabs.onActivated.addListener(() => {
 				// console.log('cookies----', cookies)
 			})
 
-			// 测试页面提示
-			if (url.hostname === 'test.e.newrank.cn') {
-				chrome.tabs.sendMessage(
-					tabs[0].id,
-					{ type: 'isTest' },
-					response => response && console.log(response)
-				)
-			}
+			// // 测试页面提示，和onUpdated事件不同，区别是在切换tab时可以直接拿到hostname
+			// if (url.hostname === 'test.e.newrank.cn') {
+			// 	chrome.tabs.sendMessage(
+			// 		tabs[0].id,
+			// 		{ type: 'isTest' },
+			// 		response => response && console.log(response)
+			// 	)
+			// }
 		}
 	})
 })
@@ -79,9 +78,10 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 		}
 	}
 
-	// 测试页面提示（待完善，url校验）
-	if (url === 'test.e.newrank.cn') {
-		chrome.tabs.sendMessage(tabs[0].id, { type: 'isTest' }, response => {
+	// 测试页面提示（url校验）
+	const reg = new RegExp(/^http[s]*:\/\/test.e.newrank.cn(\S+)+$/)
+	if (reg.test(url)) {
+		chrome.tabs.sendMessage(tab.id, { type: 'isTest' }, response => {
 			// 收到通知的回复
 			// console.log(response)
 		})

@@ -1,8 +1,9 @@
 /* eslint-disable no-undef */
-import { Button, Divider, Input } from 'antd'
+import { Button, Divider, Input, message } from 'antd'
 import { SoundOutlined } from '@ant-design/icons'
 import { FC, useState } from 'react'
 import styles from './index.module.less'
+import { notDevPage } from '../../utils'
 
 const Manage: FC<any> = () => {
 	const [info, setInfo] = useState("Hello, I'm PopUp！")
@@ -13,7 +14,12 @@ const Manage: FC<any> = () => {
 	const getCurrentTabId = (callback: (e?: string) => void) => {
 		// @ts-ignore
 		chrome.tabs.query({ active: true, currentWindow: true }, (tabs: any[]) => {
-			if (callback) callback(tabs.length ? tabs[0].id : void 0)
+			const url = tabs[0].url
+			if (url && notDevPage(url)) {
+				if (callback) callback(tabs.length ? tabs[0].id : void 0)
+			} else {
+				message.warning('Not Valid Page')
+			}
 		})
 	}
 
@@ -44,11 +50,15 @@ const Manage: FC<any> = () => {
 		// @ts-ignore
 		chrome.tabs.query({ active: true, currentWindow: true }, (tabs: any) => {
 			const url = tabs[0]?.url
-			const rightUrl = new URL(url)
-			// @ts-ignore
-			chrome.cookies.getAll({ domain: rightUrl.host }, (cookies: any) => {
-				if (callback) callback(cookies?.map((c: any) => ({ name: c.name, value: c.value })))
-			})
+			if (url && notDevPage(url)) {
+				const rightUrl = new URL(url)
+				// @ts-ignore
+				chrome.cookies.getAll({ domain: rightUrl.host }, (cookies: any) => {
+					if (callback) callback(cookies?.map((c: any) => ({ name: c.name, value: c.value })))
+				})
+			} else {
+				message.warning('Not Valid Page')
+			}
 		})
 	}
 
@@ -105,8 +115,8 @@ const Manage: FC<any> = () => {
 			</Button>
 			{showCookies.length ? (
 				<div className={styles.cookiesWrap}>
-					{showCookies.map(item => (
-						<p>
+					{showCookies.map((item, index) => (
+						<p key={item.name + index}>
 							<span className="wd-text-[#d48806] wd-mr-4px">{item.name}:</span>
 							<span>{item.value}</span>
 						</p>
