@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable prettier/prettier */
+import { isHttpsPage } from '../utils'
 
 // 监听发送给background的事件
 chrome.runtime.onMessage.addListener(request => {
@@ -21,7 +22,12 @@ chrome.cookies.onChanged.addListener(changeInfo => {
 // 监听tab切换
 chrome.tabs.onActivated.addListener(() => {
 	chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-		const tabUrl = tabs[0].url // 空白标签页的tab[0].url为空
+		const tabUrl = tabs[0].url
+
+		// 非https页面，发送事件会报错
+		// 空白标签页的tab[0].url为空
+		if (!tabUrl || !isHttpsPage(tabUrl)) return
+
 		if (tabUrl) {
 			const url = new URL(tabUrl)
 			// 获取当前页面的cookies
@@ -65,6 +71,7 @@ const loginUrls = [
 
 // 当前页面url变化时，对部分url下的页面的元素进行查找
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+	if (!tab || !changeInfo) return
 	const { url } = tab // 这里只能拿到完整的url，没有hostname等信息
 	if (changeInfo.status === 'complete') {
 		if (loginUrls.find(item => url === item)) {
