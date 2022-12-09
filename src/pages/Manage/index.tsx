@@ -82,7 +82,7 @@ const Manage: FC<any> = () => {
 			</p>
 			<Input.Group compact>
 				<Input
-					style={{ width: 'calc(100% - 65px)' }}
+					className={styles.input}
 					value={info}
 					onChange={e => setInfo(e.target.value)}
 					placeholder="请输入内容"

@@ -3,12 +3,18 @@ import { Button } from 'antd'
 import { LoginOutlined } from '@ant-design/icons'
 import { config } from '../../config'
 import styles from './index.module.less'
+import { useUserInfo } from '../../context/user'
 
-const Notlogin: FC<any> = () => {
+const NotLogin: FC<any> = () => {
+	const [, setUserInfo] = useUserInfo()
 	/** 打开登录页面 */
 	const handleLogIn = () => {
 		const loginHref = config.loginUrl
 		window.open(loginHref)
+	}
+
+	const handleNoPassword = () => {
+		setUserInfo({ nickName: 'Visiter' })
 	}
 
 	return (
@@ -20,8 +26,11 @@ const Notlogin: FC<any> = () => {
 					登录
 				</Button>
 			</div>
+			<Button onClick={handleNoPassword} ghost>
+				游客进入
+			</Button>
 		</div>
 	)
 }
 
-export default Notlogin
+export default NotLogin

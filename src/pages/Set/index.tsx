@@ -9,7 +9,6 @@ import { config } from '../../config'
 import styles from './index.module.less'
 
 const Set: FC<any> = () => {
-	const navigate = useNavigate()
 	// 用户信息
 	const [userInfo] = useUserInfo()
 

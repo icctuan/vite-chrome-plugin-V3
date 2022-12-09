@@ -19,7 +19,8 @@ const routes: Route[] = [
 		redirect: '/dashboard/manage',
 		routes: [
 			{
-				path: '/dashboard/',
+				path: '/dashboard/:id',
+				redirect: '/dashboard/manage',
 				component: Layout,
 				routes: [
 					{

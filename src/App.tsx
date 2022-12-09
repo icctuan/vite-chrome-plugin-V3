@@ -16,19 +16,6 @@ function App() {
 	const [userInfo, setUserInfo] = useUserInfo()
 	const [loading, setLoading] = useState(false)
 
-	// useEffect(() => {
-	// 	setLoading(true)
-	// 	// 获取用户登录信息
-	// 	reqGetUser()
-	// 		.then(res => {
-	// 			const { success, data } = res as any
-	// 			if (success) {
-	// 				setUserInfo(data?.user || {})
-	// 			}
-	// 		})
-	// 		.finally(() => setLoading(false))
-	// }, [])
-
 	useEffect(() => {
 		setLoading(true)
 		// 获取用户登录信息
