@@ -20,7 +20,6 @@ const routes: Route[] = [
 		routes: [
 			{
 				path: '/dashboard/:id',
-				redirect: '/dashboard/manage',
 				component: Layout,
 				routes: [
 					{

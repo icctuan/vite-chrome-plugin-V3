@@ -17,16 +17,16 @@ function App() {
 	const [loading, setLoading] = useState(false)
 
 	useEffect(() => {
-		// setLoading(true)
-		// // 获取用户登录信息
-		// reqGetUserInfo()
-		// 	.then(res => {
-		// 		const { success, result } = res as any
-		// 		if (success) {
-		// 			dispatchUserInfo(result || {})
-		// 		}
-		// 	})
-		// 	.finally(() => setLoading(false))
+		setLoading(true)
+		// 获取用户登录信息
+		reqGetUserInfo()
+			.then(res => {
+				const { success, result } = res as any
+				if (success) {
+					dispatchUserInfo(result || {})
+				}
+			})
+			.finally(() => setLoading(false))
 	}, [])
 
 	return (
@@ -37,7 +37,7 @@ function App() {
 				<HashRouter basename="/">
 					<Routes>
 						<Route path="/" element={<Layout />}>
-							<Route index element={<Tool />} />
+							<Route index element={<Manage />} />
 							<Route path="tool" element={<Tool />} />
 							<Route path="manage" element={<Manage />} />
 							<Route path="setting" element={<Set />} />
