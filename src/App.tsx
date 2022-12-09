@@ -13,20 +13,20 @@ import { useUserInfo } from './context/user'
 
 function App() {
 	// 获取用户信息并存入recoil
-	const [userInfo, setUserInfo] = useUserInfo()
+	const [userInfo, dispatchUserInfo] = useUserInfo()
 	const [loading, setLoading] = useState(false)
 
 	useEffect(() => {
-		setLoading(true)
-		// 获取用户登录信息
-		reqGetUserInfo()
-			.then(res => {
-				const { success, result } = res as any
-				if (success) {
-					setUserInfo(result || {})
-				}
-			})
-			.finally(() => setLoading(false))
+		// setLoading(true)
+		// // 获取用户登录信息
+		// reqGetUserInfo()
+		// 	.then(res => {
+		// 		const { success, result } = res as any
+		// 		if (success) {
+		// 			dispatchUserInfo(result || {})
+		// 		}
+		// 	})
+		// 	.finally(() => setLoading(false))
 	}, [])
 
 	return (
